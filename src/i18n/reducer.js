@@ -42,7 +42,7 @@ export function setMessage(newMessage, _, f) {
  * 批量添加不存在的语言包-已有的不添加
  * @param {*} newMesaage 不存在的语言包
  */
-export function addMessage(messageItems, _, f) {
+export function addMessageItem(messageItems, _, f) {
   // 新语言包需要做已有语言包的内容比对，新语言包必须只能包含已存在语言包的key-排除已有语言包
   if (!messageItems) {
     console.warn(`cxy-react-i18n 添加新语言包 值不能为空`);
@@ -62,7 +62,7 @@ export function addMessage(messageItems, _, f) {
  * 删除单个语言包
  * @param {string} messageKey 已存在的语言类型
  */
-export function deleteMessage(messageKey, _, f) {
+export function deleteMessageItem(messageKey, _, f) {
   const { i18nLangObj = {} } = f.moduleComputed;
   if (!messageKey) {
     console.warn(`cxy-react-i18n 删除语言包 值不能为空`);
@@ -153,7 +153,7 @@ export function updateMessageText(messageItems, _, f) {
  * @param {*} messageTextKey 语言包下的对照文字key
  * @returns boolean
  */
-export function deleteMessageItemText(messageTextKey, _, f) {
+export function deleteMessageText(messageTextKey, _, f) {
   if (!messageTextKey) {
     console.warn(`cxy-react-i18n 删除语言包对应文本 值不能为空`);
   } else if (getType(messageTextKey) !== "string") {

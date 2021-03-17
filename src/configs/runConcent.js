@@ -1,24 +1,25 @@
 import { run } from "concent";
-import I18n from "../i18n/index";
+import { MODEL_NAME } from "./vars";
+import store from "../i18n/index";
 const runStore = () => {
-	return run(
-		{ I18n },
-		{
-			middlewares: [],
-			plugins: [],
-			isHot: true,
-			isStrict: false,
-			log: false,
-			alwaysRenderCaller: true,
+  return run(
+    { [MODEL_NAME]: store },
+    {
+      middlewares: [],
+      plugins: [],
+      isHot: true,
+      isStrict: false,
+      log: false,
+      alwaysRenderCaller: true,
 
-			computedCompare: true,
-			watchCompare: true,
-			watchImmediate: true,
-			reComputed: true,
-			objectValueCompare: true,
-			nonObjectValueCompare: true,
-			localStorage: true
-		}
-	);
+      computedCompare: true,
+      watchCompare: true,
+      watchImmediate: true,
+      reComputed: true,
+      objectValueCompare: true,
+      nonObjectValueCompare: true,
+      localStorage: true,
+    }
+  );
 };
 export default runStore;

@@ -1,9 +1,10 @@
 import { useConcent } from "concent";
+import { MODEL_NAME } from "../configs/vars";
 
 export default function RenderI18nKeyToText(props) {
   const { i18nKey } = props;
 
-  const { moduleComputed } = useConcent({ module: "I18n" });
+  const { moduleComputed } = useConcent({ module: MODEL_NAME });
 
   const { i18nMessage } = moduleComputed;
 

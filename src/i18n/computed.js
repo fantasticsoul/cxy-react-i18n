@@ -44,7 +44,7 @@ export function i18nLangKey({ message }) {
  * 当前语言包内容的key值
  * @returns i18n message key to array
  */
-export function I18nMessageKeys({ message }, o, f) {
+export function i18nMessageKeys({ message }, o, f) {
   try {
     const { i18nLangKey } = f.cuVal;
     if (i18nLangKey[0]) {

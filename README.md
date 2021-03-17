@@ -1,5 +1,17 @@
 # 适用于 react 的 I18n 动态化解决方案
 
+## 任何建议、问题
+
+<a href="https://github.com/cxy2019731/cxy-react-i18n">https://github.com/cxy2019731/cxy-react-i18n</a>
+
+## 更新日志
+
+<a href="https://github.com/cxy2019731/cxy-react-i18n/blob/master/logs.md">https://github.com/cxy2019731/cxy-react-i18n/blob/master/logs.md</a>
+
+## 注意
+
+1.使用时需要注意 cxy-react-i18n 的版本和主要依赖 concent 的版本。需要保持一致。 2.当前支持的 concent 版本为:^2.14.12
+
 ## 开始
 
 ```javascript
@@ -11,8 +23,12 @@
 1.导入注册器
 
 ```javascript
+// 项目中未使用concent
 import { i18nRun } from "cxy-react-i18n";
 i18nRun();
+// 项目中使用了concent
+import { i18nRunModel } from "cxy-react-i18n";
+i18nRunModel();
 ```
 
 2.注册文本
@@ -51,9 +67,11 @@ renderI18nKeyToText("test");
 test;
 ```
 
+
+
 ## 全部 API
 
-### `i18nRun`---------注册器，初始化
+### `i18nRun`---------注册器，初始化,适用于未使用 concent 的项目
 
 1.简写：
 
@@ -75,7 +93,66 @@ ir();
 
 ```javascript
 1.应尽可能在最顶层逻辑调用--推荐入口文件。
-2.全局只需调用一次
+2.全局只需调用一次,和`i18nRunModel`冲突
+```
+
+### `i18nRunModel`---------注册器，初始化,效果同上,适用于已使用 concent 的项目
+
+1.简写：
+
+```javascript
+i18nRunModel === irm;
+```
+
+2.导入
+
+```javascript
+import { i18nRunModel } from "cxy-react-i18n";
+i18nRunModel();
+// 或者
+import { ir } from "cxy-react-i18n";
+ir();
+```
+
+3.注意
+
+```javascript
+1.应尽可能在最顶层逻辑调用--推荐入口文件。
+2.全局只需调用一次,和`i18nRun`冲突
+```
+
+### `i18nModel`----------注册器 model,初始化,效果同上,适用于已使用 concent 的项目
+
+1.简写：
+
+```javascript
+i18nModel === im;
+```
+
+2.导入
+
+```javascript
+import { run } from "concent";
+import { i18nModel, MODEL_NAME } from "cxy-react-i18n";
+// 你的run函数调用处
+run({
+  ...你的models,
+  [MODEL_NAME]: i18nModel,
+});
+// 或者
+import { im, MODEL_NAME } from "cxy-react-i18n";
+// 你的run函数调用处
+run({
+  ...你的models,
+  [MODEL_NAME]: im,
+});
+```
+
+3.注意
+
+```javascript
+1.应尽可能在最顶层逻辑调用--推荐入口文件。
+2.全局只需调用一次,和`i18nRun`冲突
 ```
 
 ### `renderI18nKeyToText`---------转换器，转换指定 key 的文本
@@ -152,30 +229,6 @@ gl();
 
 ```
 
-### `getLang`---------获取当前采用的语言的 key
-
-1.简写：
-
-```javascript
-getLang === gl;
-```
-
-2.导入
-
-```javascript
-import { getLang } from "cxy-react-i18n";
-getLang();
-// 或者
-import { gl } from "cxy-react-i18n";
-gl();
-```
-
-3.注意
-
-```javascript
-
-```
-
 ### `getMessage`---------获取当前所有的语言包对象
 
 1.简写：
@@ -200,12 +253,12 @@ gm();
 1.空对象表示未设置
 ```
 
-### `setMessage`---------设置语言包内容
+### `setMessageItem`---------设置语言包内容
 
 1.简写：
 
 ```javascript
-setMessage === sm;
+setMessageItem === smi;
 ```
 
 2.导入
@@ -222,11 +275,11 @@ const message ={
     },
     ...
 }
-import { setMessage } from "cxy-react-i18n";
-setMessage(message);
+import { setMessageItem } from "cxy-react-i18n";
+setMessageItem(message);
 // 或者
-import { sm } from "cxy-react-i18n";
-sm(message);
+import { smi } from "cxy-react-i18n";
+smi(message);
 ```
 
 3.注意
@@ -235,12 +288,12 @@ sm(message);
 1.覆盖性设置，需要包含当前正在使用的语言包所有内容,一般只是第一次初始化语言包内容时使用。
 ```
 
-### `addMessage`---------新增语言包
+### `addMessageItem`---------新增语言包
 
 1.简写：
 
 ```javascript
-addMessage === am;
+addMessageItem === ami;
 ```
 
 2.导入
@@ -262,11 +315,11 @@ const new_message={
         test:'測試'
     }
 }
-import { addMessage } from "cxy-react-i18n";
-addMessage(new_message);
+import { addMessageItem } from "cxy-react-i18n";
+addMessageItem(new_message);
 // 或者
-import { am } from "cxy-react-i18n";
-am(new_message);
+import { ami } from "cxy-react-i18n";
+ami(new_message);
 // 结果
 ={...oldMessage,...new_message}
 ```
@@ -277,22 +330,22 @@ am(new_message);
 1.增量性设置，常用语初始化后的其他语言包添加进message
 ```
 
-### `deleteMessage`---------删除语言包
+### `deleteMessageItem`---------删除语言包
 
 1.简写：
 
 ```javascript
-deleteMessage === dm;
+deleteMessageItem === dmi;
 ```
 
 2.导入
 
 ```javascript
-import { deleteMessage } from "cxy-react-i18n";
-deleteMessage("要删除的语言包的key");
+import { deleteMessageItem } from "cxy-react-i18n";
+deleteMessageItem("要删除的语言包的key");
 // 或者
-import { dm } from "cxy-react-i18n";
-dm("要删除的语言包的key");
+import { dmi } from "cxy-react-i18n";
+dmi("要删除的语言包的key");
 ```
 
 3.注意
@@ -369,20 +422,20 @@ ud(upMsgTest);
 1.一次性修改多个已存在语言包中已存在的key的文本值。
 ```
 
-### `deleteMessageItemText`---------删除已存在的文本对应 key 数据
+### `deleteMessageText`---------删除已存在的文本对应 key 数据
 
 1.简写：
 
 ```javascript
-deleteMessageItemText === dt;
+deleteMessageText === dt;
 ```
 
 2.导入
 
 ```javascript
 const deleteTextKey = "需要删除的文本对应的key";
-import { deleteMessageItemText } from "cxy-react-i18n";
-deleteMessageItemText(deleteTextKey);
+import { deleteMessageText } from "cxy-react-i18n";
+deleteMessageText(deleteTextKey);
 // 或者
 import { dt } from "cxy-react-i18n";
 dt(deleteTextKey);
@@ -422,5 +475,13 @@ gc(getComputedKey);
     i18nMessage---当前才用的语言包的内容
     i18nLangObj---已存在的语言包的key对象
     i18nLangKey---已存在的语言包的key数组
-    I18nMessageKeys---已存在的语言包内容的key数组(默认取message中首个语言包)
+    i18nMessageKeys---已存在的语言包内容的key数组(默认取message中首个语言包)
 ```
+
+
+## 示例(还未完全完善,可能未及时同步,会尽快完善)
+
+<a href="https://codesandbox.io/s/cxy-react-i18n-example-fnqux" target="_blank" style="font-size:30px;">cxy-react-i18n 综合示例</a><br />
+<a href="https://codesandbox.io/s/cxy-react-i18n-i18nrunmodel-example-umscl?file=/src/index.js:117-129" target="_blank" style="font-size:30px;">项目中未引入concent的使用示例</a><br />
+<a href="https://codesandbox.io/s/cxy-react-i18n-example-fnqux" target="_blank" style="font-size:30px;">项目中已经引入concent的使用示例-自动注册</a><br />
+<a href="https://codesandbox.io/s/cxy-react-i18n-i18nmodel-example-ysept?file=/src/concentConfigs/runConcent.js" target="_blank" style="font-size:30px;">项目中已经引入concent的使用示例-手动注册</a><br />
