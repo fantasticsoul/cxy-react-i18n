@@ -15,7 +15,7 @@
 ## 开始
 
 ```javascript
-    npm i cxy-react-i18n
+    yarn add cxy-react-i18n
 ```
 
 ## 使用
