@@ -15,9 +15,12 @@
 ## 开始
 
 ```javascript
-    yarn add cxy-react-i18n   or   npm i cxy-react-i18n
+    yarn add cxy-react-i18n
 ```
-
+or
+```javascript
+    npm i cxy-react-i18n
+```
 ## 使用
 
 1.导入注册器
