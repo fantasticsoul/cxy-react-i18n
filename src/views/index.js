@@ -1,7 +1,8 @@
+import React from "react";
 import { useConcent } from "concent";
 import { MODEL_NAME } from "../configs/vars";
 
-export default function RenderI18nKeyToText(props) {
+function RenderI18nKeyToText(props) {
   const { i18nKey } = props;
 
   const { moduleComputed } = useConcent({ module: MODEL_NAME });
@@ -14,3 +15,14 @@ export default function RenderI18nKeyToText(props) {
     return i18nKey;
   }
 }
+
+/**
+ * 转换指定key的国际化文本
+ * @param {string} i18nKey 国际化对应key
+ * @returns string
+ */
+const renderI18nKeyToText = (i18nKey) => {
+  return <RenderI18nKeyToText i18nKey={i18nKey} />;
+};
+
+export default renderI18nKeyToText;

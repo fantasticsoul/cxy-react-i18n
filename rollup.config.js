@@ -10,5 +10,5 @@ export default {
     exports: "auto",
   },
   plugins: [babel(), nodeResolve(), terser()],
-  external: ["react"],
+  external: [],
 };

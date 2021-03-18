@@ -1,107 +1,67 @@
-import React from "react";
-import {
-  reducer as ccReducer,
-  getComputed as ccGetComputed,
-  getState as ccGetState,
-} from "concent";
 import runStore from "../configs/runConcent";
-import configureStore from "../configs/runConfigure";
 import runModel from "../configs/runModel";
-import RenderI18nKeyToText from "../views/index";
+import renderI18nKeyToText_ from "../views/index";
 import { MODEL_NAME as MODEL_NAME_ } from "../configs/vars";
+// function
+import getI18nStates from "../functions/getState";
+import getI18nReudcers from "../functions/getReducer";
+import getI18nComputed from "../functions/getComputed";
 
-/**
- * 转换指定key的国际化文本
- * @param {string} i18nKey 国际化对应key
- * @returns string
- */
-export const renderI18nKeyToText = (i18nKey) => {
-  return <RenderI18nKeyToText i18nKey={i18nKey} />;
-};
+// 转换文本
+export const renderI18nKeyToText = renderI18nKeyToText_;
 
 // 项目未使用concent时使用
 export const i18nRun = runStore;
-
-// 项目已使用concent时使用
-export const i18nRunModel = configureStore;
 
 // 项目已使用concent时采用自注册的方式时使用
 export const i18nModel = { ...runModel };
 export const MODEL_NAME = MODEL_NAME_;
 
 // 设置采用的语言
-export const setLang = (...args) => {
-  return ccReducer[MODEL_NAME].setLang(...args);
-};
+export const setLang = getI18nReudcers.setLang;
 
 // 获取当前采用的语言
-export const getLang = () => {
-  return ccGetState(MODEL_NAME).lang;
-};
+export const getLang = getI18nStates.getLang;
 
 // 获取全部语言包对象
-export const getMessage = () => {
-  return ccGetState(MODEL_NAME).message;
-};
+export const getMessage = getI18nStates.getMessage;
 
 // 设置整体语言包
-export const setMessage = (...args) => {
-  ccReducer[MODEL_NAME].setMessage(...args);
-};
+export const setMessage = getI18nReudcers.setMessage;
 
 // 新增单个语言包
-export const addMessageItem = (...args) => {
-  return ccReducer[MODEL_NAME].addMessageItem(...args);
-};
+export const addMessageItem = getI18nReudcers.addMessageItem;
 
 // 删除单个语言包
-export const deleteMessageItem = (...args) => {
-  return ccReducer[MODEL_NAME].deleteMessageItem(...args);
-};
+export const deleteMessageItem = getI18nReudcers.deleteMessageItem;
 
 // 批量新增语言包转换内容
-export const addMessageText = (...args) => {
-  return ccReducer[MODEL_NAME].addMessageText(...args);
-};
+export const addMessageText = getI18nReudcers.addMessageText;
 
 // 批量更新语言包转换内容
-export const updateMessageText = (...args) => {
-  return ccReducer[MODEL_NAME].updateMessageText(...args);
-};
+export const updateMessageText = getI18nReudcers.updateMessageText;
 
 // 批量删除语言包转换内容
-export const deleteMessageText = (...args) => {
-  return ccReducer[MODEL_NAME].deleteMessageText(...args);
-};
+export const deleteMessageText = getI18nReudcers.deleteMessageText;
 
 // 获取衍生数据
-export const getComputed = (computedName) => {
-  try {
-    if (computedName) {
-      return ccGetComputed(MODEL_NAME)[computedName];
-    }
-    return null;
-  } catch (err) {
-    return null;
-  }
-};
+export const getComputed = getI18nComputed;
 
 // 简写
-export const im = {...runModel};
+export const im = runModel;
 export const ir = i18nRun;
-export const irm = i18nRunModel;
-export const fr = renderI18nKeyToText;
+export const fr = renderI18nKeyToText_;
 
-export const gl = getLang;
-export const sl = setLang;
+export const gl = getI18nStates.getLang;
+export const sl = getI18nReudcers.setLang;
 
-export const gm = getMessage;
-export const sm = setMessage;
-export const ami = addMessageItem;
-export const dmi = deleteMessageItem;
+export const gm = getI18nStates.getMessage;
+export const sm = getI18nReudcers.setMessage;
+export const ami = getI18nReudcers.addMessageItem;
+export const dmi = getI18nReudcers.deleteMessageItem;
 
-export const at = addMessageText;
-export const ut = updateMessageText;
-export const dt = deleteMessageText;
+export const at = getI18nReudcers.addMessageText;
+export const ut = getI18nReudcers.updateMessageText;
+export const dt = getI18nReudcers.deleteMessageText;
 
-export const gc = getComputed;
+export const gc = getI18nComputed;

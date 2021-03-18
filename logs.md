@@ -1,3 +1,14 @@
+### 2020.03.18
+
+    1.删除`i18nRunModel`API。
+    2.处理`MODEL_NAME`引用错误。
+    3.暂时请勿使用`i18nModel`手动注册的方式,请使用`i18nRun`自动注册
+    4.新增hook API---具体使用请看README.md
+        useI18nState
+        useI18nReducer
+        useI18nComputed
+        useI18nKeyToText
+
 ### 2021.03.17
 
     1.新增 `i18nRunModel`(简写=irm)方法,和`i18Run`方法效果一样,二选其一,区别于:已经使用了concent的项目使用`i18nRunModel`，未使用concent的项目使用`i18Run`

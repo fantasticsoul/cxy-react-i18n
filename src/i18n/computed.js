@@ -32,7 +32,7 @@ export function i18nLangObj({ message }) {
 /**
  * 当前所有的语言包类型数组
  */
-export function i18nLangKey({ message }) {
+export function i18nLangKeys({ message }) {
   try {
     return Object.keys(message);
   } catch (err) {

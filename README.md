@@ -17,10 +17,13 @@
 ```javascript
     yarn add cxy-react-i18n
 ```
+
 or
+
 ```javascript
     npm i cxy-react-i18n
 ```
+
 ## 使用
 
 1.导入注册器
@@ -29,9 +32,6 @@ or
 // 项目中未使用concent
 import { i18nRun } from "cxy-react-i18n";
 i18nRun();
-// 项目中使用了concent
-import { i18nRunModel } from "cxy-react-i18n";
-i18nRunModel();
 ```
 
 2.注册文本
@@ -70,8 +70,6 @@ renderI18nKeyToText("test");
 test;
 ```
 
-
-
 ## 全部 API
 
 ### `i18nRun`---------注册器，初始化,适用于未使用 concent 的项目
@@ -96,66 +94,7 @@ ir();
 
 ```javascript
 1.应尽可能在最顶层逻辑调用--推荐入口文件。
-2.全局只需调用一次,和`i18nRunModel`冲突
-```
-
-### `i18nRunModel`---------注册器，初始化,效果同上,适用于已使用 concent 的项目
-
-1.简写：
-
-```javascript
-i18nRunModel === irm;
-```
-
-2.导入
-
-```javascript
-import { i18nRunModel } from "cxy-react-i18n";
-i18nRunModel();
-// 或者
-import { ir } from "cxy-react-i18n";
-ir();
-```
-
-3.注意
-
-```javascript
-1.应尽可能在最顶层逻辑调用--推荐入口文件。
-2.全局只需调用一次,和`i18nRun`冲突
-```
-
-### `i18nModel`----------注册器 model,初始化,效果同上,适用于已使用 concent 的项目
-
-1.简写：
-
-```javascript
-i18nModel === im;
-```
-
-2.导入
-
-```javascript
-import { run } from "concent";
-import { i18nModel, MODEL_NAME } from "cxy-react-i18n";
-// 你的run函数调用处
-run({
-  ...你的models,
-  [MODEL_NAME]: i18nModel,
-});
-// 或者
-import { im, MODEL_NAME } from "cxy-react-i18n";
-// 你的run函数调用处
-run({
-  ...你的models,
-  [MODEL_NAME]: im,
-});
-```
-
-3.注意
-
-```javascript
-1.应尽可能在最顶层逻辑调用--推荐入口文件。
-2.全局只需调用一次,和`i18nRun`冲突
+2.`i18nRun`可和已使用concent的项目混合使用,不会出现run的重复使用冲突
 ```
 
 ### `renderI18nKeyToText`---------转换器，转换指定 key 的文本
@@ -477,14 +416,70 @@ gc(getComputedKey);
 2.目前衍生key
     i18nMessage---当前才用的语言包的内容
     i18nLangObj---已存在的语言包的key对象
-    i18nLangKey---已存在的语言包的key数组
+    i18nLangKeys---已存在的语言包的key数组
     i18nMessageKeys---已存在的语言包内容的key数组(默认取message中首个语言包)
 ```
 
+## HOOKS API
+
+### useI18nState----------映射状态数据-具有响应能力
+
+1.使用
+
+```javascript
+import { useI18nState } from "cxy-react-i18n";
+function App() {
+  // 获取全部状态-返回object
+  const i18nState = useI18nState();
+  // 指定状态key参数-返回指定key的类型
+  const i18nStateKeyVal = useI18nState(stateKey); //lang or message
+  return <></>;
+}
+```
+
+### useI18nState----------映射状态方法
+
+1.使用
+
+```javascript
+import { useI18nReducer } from "cxy-react-i18n";
+function App() {
+  // 获取全部reducer方法-返回object
+  const i18nReducers = useI18nReducer();
+  // 指定reducer方法key参数-返回指定reducer的方法
+  const i18nReducerName = useI18nState(reducerName); //这个名称和上面的方法名保持一致,获取数据型API除外
+  return <></>;
+}
+```
+
+### useI18nComputed----------映射状态计算属性-具有响应能力
+
+1.使用
+
+```javascript
+import { useI18nComputed } from "cxy-react-i18n";
+function App() {
+  // 获取全部计算属性-返回object
+  const i18nComputeds = useI18nComputed();
+  // 指定计算属性参数-返回指定计算属性的值
+  const i18nComputedName = useI18nComputed(computedName); //这个名称useI18nComputed()获取到的对象属性名称保持一致
+  return <></>;
+}
+```
+
+### useI18nKeyToText----------映射状态计算属性-具有响应能力
+
+1.使用
+
+```javascript
+import { useI18nKeyToText } from "cxy-react-i18n";
+function App() {
+  const keyText = useI18nComputed(textKey); //textKey不填或为空均返回空字符串
+  return <>{keyText}</>;
+}
+```
 
 ## 示例(还未完全完善,可能未及时同步,会尽快完善)
 
 <a href="https://codesandbox.io/s/cxy-react-i18n-example-fnqux" target="_blank" style="font-size:30px;">cxy-react-i18n 综合示例</a><br />
-<a href="https://codesandbox.io/s/cxy-react-i18n-i18nrunmodel-example-umscl?file=/src/index.js:117-129" target="_blank" style="font-size:30px;">项目中未引入concent的使用示例</a><br />
-<a href="https://codesandbox.io/s/cxy-react-i18n-example-fnqux" target="_blank" style="font-size:30px;">项目中已经引入concent的使用示例-自动注册</a><br />
-<a href="https://codesandbox.io/s/cxy-react-i18n-i18nmodel-example-ysept?file=/src/concentConfigs/runConcent.js" target="_blank" style="font-size:30px;">项目中已经引入concent的使用示例-手动注册</a><br />
+<a href="https://codesandbox.io/s/cxy-react-i18n-example-fnqux" target="_blank" style="font-size:30px;">项目中已经引入 concent 的使用示例-自动注册</a><br />
